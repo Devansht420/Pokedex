@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getPokemonsData } from "../reducers/getPokemonsData";
+import { getUserPokemons } from "../reducers/getUserPokemons";
+import { removePokemonFromUserList } from "../reducers/removePokemonFromUserList";
 import { PokemonInitialStateType, generatedPokemonType } from "../../utils/Types";
-import { getInitialPokemonData } from "../../reducers/getInitalPokemonData";
-import { getUserPokemons } from "../../reducers/getUserPokemons";
-import { removePokemonFromUserList } from "../../reducers/removePokemonFromUserList";
-import { getPokemonData } from "../../reducers/getPokemonData";
+import { getInitialPokemonData } from "../reducers/getInitalPokemonData";
 
 const initialState: PokemonInitialStateType = {
   allPokemon: undefined,
@@ -48,7 +48,7 @@ export const PokemonSlice = createSlice({
     builder.addCase(getInitialPokemonData.fulfilled, (state, action) => {
       state.allPokemon = action.payload;
     });
-    builder.addCase(getPokemonData.fulfilled, (state, action) => {
+    builder.addCase(getPokemonsData.fulfilled, (state, action) => {
       state.randomPokemons = action.payload;
     });
     builder.addCase(getUserPokemons.fulfilled, (state, action) => {

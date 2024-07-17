@@ -1,14 +1,14 @@
 import React from "react";
-import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
-import {IoGitCompare} from "react-icons/io5"
-import { FaPlus, FaTrash } from "react-icons/fa"
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
+import { IoGitCompare } from "react-icons/io5";
+import { FaTrash, FaPlus } from "react-icons/fa";
 import { addToCompare, setCurrentPokemon } from "../app/slices/PokemonSlice";
+import { useAppDispatch } from "../app/hooks";
+import { removePokemonFromUserList } from "../app/reducers/removePokemonFromUserList";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setPokemonTab, setToast } from "../app/slices/AppSlice";
-import { addPokemonToList } from "../reducers/addPokemonToList";
-import { removePokemonFromUserList } from "../reducers/removePokemonFromUserList";
+import { addPokemonToList } from "../app/reducers/addPokemonToList";
 import { pokemonTabs } from "../utils/Constants";
+import { userPokemonsType, pokemonTypeInterface } from "../utils/Types";
 
 function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
   const dispatch = useAppDispatch();

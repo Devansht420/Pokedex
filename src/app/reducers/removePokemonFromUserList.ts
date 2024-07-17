@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { deleteDoc, doc } from "firebase/firestore";
-import { pokemonListRef } from "../utils/FirebaseConfig";
-
+import { pokemonListRef } from "../../utils/FirebaseConfig";
 
 export const removePokemonFromUserList = createAsyncThunk(
   "pokemon/remove",

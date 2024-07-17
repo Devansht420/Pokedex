@@ -1,11 +1,11 @@
 import React from "react";
-import { pokemonStatType, pokemonTypeInterface, userPokemonsType } from "../utils/Types";
 import { FaPlus } from "react-icons/fa";
-import { pokemonTypes } from "../utils/getPokemonTypes";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
 import { removeFromCompare } from "../app/slices/PokemonSlice";
-import { addPokemonToList } from "../reducers/addPokemonToList";
+import { useAppDispatch } from "../app/hooks";
+import { addPokemonToList } from "../app/reducers/addPokemonToList";
+import { pokemonTypes } from "../utils";
+import { userPokemonsType, pokemonTypeInterface, pokemonStatType } from "../utils/Types";
 
 function CompareContainer({
   pokemon = undefined,
@@ -148,7 +148,7 @@ function CompareContainer({
             </button>
             <button
               className="compare-btn"
-              onClick={() => dispatch(removeFromCompare({ id: pokemon?.id }))} 
+              onClick={() => dispatch(removeFromCompare({ id: pokemon?.id }))}
             >
               Remove
             </button>

@@ -1,11 +1,12 @@
-import { signOut } from "firebase/auth";
 import React from "react";
-import {MdOutlinePowerSettingsNew} from "react-icons/md"
 import { useLocation } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { setUserStatus, setToast, setPokemonTab } from "../app/slices/AppSlice";
+import { MdOutlinePowerSettingsNew } from "react-icons/md";
+import { signOut } from "firebase/auth";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { setPokemonTab, setToast, setUserStatus } from "../app/slices/AppSlice";
 import { firebaseAuth } from "../utils/FirebaseConfig";
 import { pokemonTabs } from "../utils/Constants";
+
 
 export default function Footer() {
   const location = useLocation();
@@ -18,8 +19,6 @@ export default function Footer() {
     dispatch(setUserStatus(undefined));
     dispatch(setToast("Logged out successfully from Firebase"));
   };
-
-  
   const routes = [
     {
       name: pokemonTabs.description,

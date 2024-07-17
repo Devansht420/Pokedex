@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Wrapper from "../sections/Wrapper";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import PokemonCardGrid from "../components/PokemonCardGrid";
 import Login from "../components/Login";
-import { getUserPokemons } from "../reducers/getUserPokemons";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { getUserPokemons } from "../app/reducers/getUserPokemons";
+import PokemonCardGrid from "../components/PokemonCardGrid";
 
 function MyList() {
   const { userInfo } = useAppSelector(({ app }) => app);

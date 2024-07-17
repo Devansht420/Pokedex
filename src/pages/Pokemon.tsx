@@ -1,18 +1,23 @@
-import React, { useEffect, useCallback, useState } from "react";
+// @ts-nocheck
+
+import { useCallback, useEffect, useState } from "react";
 import Wrapper from "../sections/Wrapper";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import axios from "axios";
-import { pokemonRoute, pokemonSpeciesRoute, pokemonTabs } from "../utils/Constants";
-import { defaultImages, images } from "../utils/getPokemonImages";
+import { defaultImages, images } from "../utils";
 import { extractColors } from "extract-colors";
-import { setPokemonTab } from "../app/slices/AppSlice";
+import axios from "axios";
+import Evolution from "./Pokemon/Evolution";
+import Locations from "./Pokemon/Locations";
+import CapableMoves from "./Pokemon/CapableMoves";
+import Description from "./Pokemon/Description";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setCurrentPokemon } from "../app/slices/PokemonSlice";
-import CapableMoves from "./PokemonPages/CapableMoves";
-import Description from "./PokemonPages/Description";
-import Evolution from "./PokemonPages/Evolution";
-import Locations from "./PokemonPages/Locations";
+import { setPokemonTab } from "../app/slices/AppSlice";
 import Loader from "../components/Loader";
+import { pokemonRoute,
+  pokemonSpeciesRoute,
+  pokemonTabs
+ } from "../utils/Constants";
 
 function Pokemon() {
   const params = useParams();
@@ -29,8 +34,7 @@ function Pokemon() {
   }, [dispatch]);
 
   const getRecursiveEvolution = useCallback(
-    // @ts-ignore
-    (evolutionChain, level, evolutionData) => {   
+    (evolutionChain, level, evolutionData) => {
       if (!evolutionChain.evolves_to.length) {
         return evolutionData.push({
           pokemon: {
@@ -60,8 +64,8 @@ function Pokemon() {
   );
 
   const getEvolutionData = useCallback(
-    (evolutionChain: any) => {
-      const evolutionData: any[] = [];
+    (evolutionChain) => {
+      const evolutionData = [];
       getRecursiveEvolution(evolutionChain, 1, evolutionData);
       return evolutionData;
     },
@@ -70,7 +74,7 @@ function Pokemon() {
 
   const [isDataLoading, setIsDataLoading] = useState(true);
   const getPokemonInfo = useCallback(
-    async (image: any) => {
+    async (image) => {
       const { data } = await axios.get(`${pokemonRoute}/${params.id}`);
       const { data: dataEncounters } = await axios.get(
         data.location_area_encounters
@@ -84,24 +88,21 @@ function Pokemon() {
       const { data: evolutionData } = await axios.get(evolutionURL);
 
       const pokemonAbilities = {
-        // @ts-ignore
         abilities: data.abilities.map(({ ability }) => ability.name),
-        // @ts-ignore
         moves: data.moves.map(({ move }) => move.name),
       };
 
-      const encounters: any[] = [];
+      const encounters = [];
       const evolution = getEvolutionData(evolutionData.chain);
       let evolutionLevel;
       evolutionLevel = evolution.find(
         ({ pokemon }) => pokemon.name === data.name
       ).level;
-      dataEncounters.forEach((encounter: { location_area: { name: string; }; }) => {
+      dataEncounters.forEach((encounter) => {
         encounters.push(
           encounter.location_area.name.toUpperCase().split("-").join(" ")
         );
       });
-      // @ts-ignore
       const stats = await data.stats.map(({ stat, base_stat }) => ({
         name: stat.name,
         value: base_stat,
@@ -110,7 +111,6 @@ function Pokemon() {
         setCurrentPokemon({
           id: data.id,
           name: data.name,
-          // @ts-ignore
           types: data.types.map(({ type: { name } }) => name),
           image,
           stats,
@@ -127,13 +127,12 @@ function Pokemon() {
 
   useEffect(() => {
     const imageElemet = document.createElement("img");
-    // @ts-ignore
     imageElemet.src = images[params.id];
     const options = {
       pixels: 10000,
       distance: 1,
       splitPower: 10,
-      colorValidator: (red: any, green: any, blue: any, alpha = 255) => alpha > 250,
+      colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
       saturationDistance: 0.2,
       lightnessDistance: 0.2,
       hueDistance: 0.083333333,
@@ -144,10 +143,8 @@ function Pokemon() {
       root.style.setProperty("--accent-color", color[0].hex.split('"')[0]);
     };
     getColor();
-    // @ts-ignore
     let image = images[params.id];
     if (!image) {
-        // @ts-ignore
       image = defaultImages[params.id];
     }
 

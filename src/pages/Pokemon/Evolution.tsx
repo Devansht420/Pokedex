@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import PokemonCardGrid from "../../components/PokemonCardGrid";
+import { getPokemonsData } from "../../app/reducers/getPokemonsData";
 import Loader from "../../components/Loader";
 import { genericPokemonType } from "../../utils/Types";
-import { getPokemonData } from "../../reducers/getPokemonData";
 
 
 function Evolution() {
@@ -16,7 +16,7 @@ function Evolution() {
         pokemonData.currentPokemon!.evolution.map(
           ({ pokemon }: { pokemon: genericPokemonType }) => pokemon
         );
-      await dispatch(getPokemonData(pokemons));
+      await dispatch(getPokemonsData(pokemons));
       setIsLoaded(true);
     };
     fetchData();
